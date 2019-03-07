@@ -1,0 +1,24 @@
+FROM continuumio/anaconda3
+
+WORKDIR /usr/src/tensorflow_2
+
+COPY . .
+
+RUN conda update -y conda \
+	&& conda update -y --all \
+	&& while read requirement; do conda install --yes ${requirement}; done < requirements.txt \
+	&& conda install -y pytorch torchvision -c pytorch \
+	&& pip install -e .[build,data,database,docs,notebook,profile,test] \
+	&& curl -sL https://deb.nodesource.com/setup_11.x | bash - \
+	&& apt-get update -y \
+	&& apt-get upgrade -y \
+	&& apt-get install -y apt-utils \
+	&& apt-get install -y nodejs \
+	&& jupyter labextension install jupyterlab-drawio \
+	&& jupyter labextension install @mflevine/jupyterlab_html \
+	&& jupyter labextension install @jupyterlab/plotly-extension \
+	&& jupyter labextension install @jupyterlab/toc \
+	&& apt-get clean
+
+CMD [ "/bin/bash" ]
+

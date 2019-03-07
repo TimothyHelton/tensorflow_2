@@ -1,0 +1,9 @@
+# PGAdmin
+export PGADMIN_DEFAULT_EMAIL=enter_user@tensorflow_2.com
+export PGADMIN_DEFAULT_PASSWORD=enter_password
+
+# Postgres
+export POSTGRES_PASSWORD=enter_password
+export POSTGRES_DB=tensorflow_2
+export POSTGRES_USER=enter_user
+

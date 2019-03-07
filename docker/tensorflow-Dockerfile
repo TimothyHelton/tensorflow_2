@@ -1,0 +1,36 @@
+FROM python:3.6
+
+WORKDIR /usr/src/tensorflow_2
+
+COPY . .
+
+RUN cd /opt \
+	&& apt-get update \
+	&& apt-get install -y \
+		protobuf-compiler \
+	&& rm -rf /var/lib/apt/lists/* \
+	&& git clone \
+		--branch master \
+		--single-branch \
+		--depth 1 \
+		https://github.com/tensorflow/models.git \
+	&& cd /opt/models/research \
+	&& protoc object_detection/protos/*.proto --python_out=. \
+	&& cd /usr/src/tensorflow_2 \
+	&& pip install --upgrade pip \
+	&& pip install --no-cache-dir -r requirements.txt \
+	&& pip install -e .[build,data,database,docs,notebook,profile,tf-cpu,test]\
+	&& curl -sL https://deb.nodesource.com/setup_11.x | bash - \
+	&& apt-get update -y \
+	&& apt-get upgrade -y \
+	&& apt-get install -y apt-utils \
+	&& apt-get install -y nodejs \
+	&& jupyter labextension install jupyterlab-drawio \
+	&& jupyter labextension install @mflevine/jupyterlab_html \
+	&& jupyter labextension install @jupyterlab/plotly-extension \
+	&& jupyter labextension install @jupyterlab/toc \
+	&& apt-get clean
+
+ENV PYTHONPATH $PYTHONPATH:/opt/models/research:/opt/models/research/slim:/opt/models/research/object_detection
+
+CMD [ "/bin/bash" ]

@@ -1,0 +1,69 @@
+version: '3.7'
+
+services:
+
+  nginx:
+    container_name: tensorflow_2_nginx
+    image: nginx:alpine
+    networks:
+      - tensorflow_2-network
+    ports:
+      - 8080:80
+    restart: always
+    volumes:
+      - ../docs/_build/html:/usr/share/nginx/html:ro
+
+  postgres:
+    container_name: tensorflow_2_postgres
+    image: postgres:alpine
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+    networks:
+      - tensorflow_2-network
+    ports:
+      - 5432:5432
+    restart: always
+    volumes:
+      - tensorflow_2-db:/var/lib/postgresql/data
+
+  pgadmin:
+    container_name: tensorflow_2_pgadmin
+    image: dpage/pgadmin4
+    depends_on:
+      - postgres
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    external_links:
+      - tensorflow_2_postgres:tensorflow_2_postgres
+    networks:
+      - tensorflow_2-network
+    ports:
+      - 5000:80
+
+  python:
+    container_name: tensorflow_2_python
+    build:
+      context: ..
+      dockerfile: docker/python-Dockerfile
+    depends_on:
+      - postgres
+    image: tensorflow_2_python
+    networks:
+      - tensorflow_2-network
+    ports:
+      - 8888:8080
+    restart: always
+    tty: true
+    volumes:
+      - ..:/usr/src/tensorflow_2
+
+networks:
+  tensorflow_2-network:
+    name: tensorflow_2
+
+volumes:
+  tensorflow_2-db:
+
