@@ -10,7 +10,7 @@ import pandas as pd
 import sqlalchemy as sa
 from sqlalchemy.sql import select
 
-from .utils import format_logger, project_vars
+from tensorflow_2.utils import format_logger, project_vars
 
 
 logger = format_logger
