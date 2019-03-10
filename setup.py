@@ -55,6 +55,8 @@ setup(
         'notebook': ['jupyter', 'jupyterlab'],
         'profile': ['memory_profiler', 'snakeviz'],
         'test': ['pytest', 'pytest-pep8'],
+        'tf-cpu': ['tensorflow'],
+        'tf-gpu': ['tensorflow-gpu'],
         },
     package_dir={'tensorflow_2': 'tensorflow_2'},
     include_package_data=True,

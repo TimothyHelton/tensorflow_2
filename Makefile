@@ -163,7 +163,7 @@ pytorch-docker:
 				docker/docker-compose.yml \
 			 && sed -i -e 's/tensorflow-Dockerfile/pytorch-Dockerfile/g' \
 				docker/docker-compose.yml \
-			 && sed -i -e 's/PKG_MANAGER=pip/PKG_MANAGER=conda/g' \
+			 && sed -i -e 's/PKG_MANAGER=pip/PKG_MANAGER=pip/g' \
 				Makefile"
 
 snakeviz: docker-up snakeviz-server
@@ -199,7 +199,7 @@ tensorflow-docker:
 				docker/docker-compose.yml \
 			 && sed -i -e 's/pytorch-Dockerfile/tensorflow-Dockerfile/g' \
 				docker/docker-compose.yml \
-			 && sed -i -e 's/PKG_MANAGER=conda/PKG_MANAGER=pip/g' \
+			 && sed -i -e 's/PKG_MANAGER=pip/PKG_MANAGER=pip/g' \
 				Makefile \
 			 && sed -i -e \"/'test': \['pytest', 'pytest-pep8'\],/a \
 				\ \ \ \ \ \ \ \ 'tf-cpu': ['tensorflow'],\
