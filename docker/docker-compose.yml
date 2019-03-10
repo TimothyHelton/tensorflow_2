@@ -47,7 +47,7 @@ services:
     container_name: tensorflow_2_python
     build:
       context: ..
-      dockerfile: docker/python-Dockerfile
+      dockerfile: docker/tensorflow-Dockerfile
     depends_on:
       - postgres
     image: tensorflow_2_python
