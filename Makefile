@@ -123,7 +123,7 @@ ipython: docker-up
 	docker container exec -it $(PROJECT)_python ipython
 
 notebook: docker-up notebook-server
-	sleep 1.5
+	sleep 3 
 	${BROWSER} $$(docker container exec \
 		$(USER)_notebook_$(PORT) \
 		jupyter notebook list | grep -o '^http\S*')
