@@ -19,7 +19,7 @@ RUN cd /opt \
 	&& cd /usr/src/tensorflow_2 \
 	&& pip install --upgrade pip \
 	&& pip install --no-cache-dir -r requirements.txt \
-	&& pip install tensorflow==2.0.0-alpha0 \
+	&& pip install tensorflow==2.0.0-beta0 \
 	&& pip install -e .[build,data,database,docs,notebook,profile,tf-cpu,test]\
 	&& curl -sL https://deb.nodesource.com/setup_11.x | bash - \
 	&& apt-get update -y \
