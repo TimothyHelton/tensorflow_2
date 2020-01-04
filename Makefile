@@ -123,7 +123,7 @@ ipython: docker-up
 	docker container exec -it $(PROJECT)_python ipython
 
 notebook: docker-up notebook-server
-	sleep 3 
+	sleep 3
 	${BROWSER} $$(docker container exec \
 		$(USER)_notebook_$(PORT) \
 		jupyter notebook list | grep -o '^http\S*')
@@ -137,7 +137,7 @@ notebook-server:
 		-p $(PORT):$(PORT) \
 		-v `pwd`:/usr/src/$(PROJECT) \
 		$(PROJECT)_python \
-		/bin/bash -c "jupyter lab \
+		/bin/bash -c "jupyter notebook \
 				--allow-root \
 				--ip=0.0.0.0 \
 				--no-browser \
@@ -150,21 +150,6 @@ pgadmin: docker-up
 psql: docker-up
 	docker container exec -it $(PROJECT)_postgres \
 		psql -U ${POSTGRES_USER} $(PROJECT)
-
-pytorch: pytorch-docker docker-rebuild
-
-pytorch-docker:
-	docker container run --rm \
-		-v `pwd`:/usr/src/$(PROJECT) \
-		-w /usr/src/$(PROJECT) \
-		ubuntu \
-		/bin/bash -c \
-			"sed -i -e 's/python-Dockerfile/pytorch-Dockerfile/g' \
-				docker/docker-compose.yml \
-			 && sed -i -e 's/tensorflow-Dockerfile/pytorch-Dockerfile/g' \
-				docker/docker-compose.yml \
-			 && sed -i -e 's/PKG_MANAGER=pip/PKG_MANAGER=pip/g' \
-				Makefile"
 
 snakeviz: docker-up snakeviz-server
 	sleep 0.5
@@ -195,9 +180,9 @@ tensorflow-docker:
 		-w /usr/src/$(PROJECT) \
 		ubuntu \
 		/bin/bash -c \
-			"sed -i -e 's/python-Dockerfile/tensorflow-Dockerfile/g' \
+			"sed -i -e 's/python-Dockerfile/tensorflow.Dockerfile/g' \
 				docker/docker-compose.yml \
-			 && sed -i -e 's/pytorch-Dockerfile/tensorflow-Dockerfile/g' \
+			 && sed -i -e 's/pytorch-Dockerfile/tensorflow.Dockerfile/g' \
 				docker/docker-compose.yml \
 			 && sed -i -e 's/PKG_MANAGER=pip/PKG_MANAGER=pip/g' \
 				Makefile \
