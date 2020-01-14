@@ -92,6 +92,7 @@ setup(
         'matplotlib',
         'numpy',
         'plotly',
+        'tensorflow',
     ],
     extras_require={
         'all': combine_dependencies(dependencies.keys()),
