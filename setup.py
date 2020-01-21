@@ -91,7 +91,9 @@ setup(
         'click',
         'matplotlib',
         'numpy',
+        'pandas',
         'plotly',
+        'scikit-learn',
         'tensorflow',
     ],
     extras_require={
