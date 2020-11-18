@@ -91,6 +91,7 @@ setup(
         'click',
         'matplotlib',
         'numpy',
+        'opencv-python-headless',
         'pandas',
         'plotly',
         'scikit-learn',
