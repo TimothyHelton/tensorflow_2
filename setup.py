@@ -94,6 +94,7 @@ setup(
         'opencv-python-headless',
         'pandas',
         'plotly',
+        'pydot',
         'scikit-learn',
         'tensorflow',
     ],
