@@ -134,6 +134,7 @@ notebook-remove:
 notebook-server:
 	docker container run -d --rm \
 		--name $(NOTEBOOK_NAME) \
+		-p 6006:6006 \
 		-p $(PORT):$(PORT) \
 		-v `pwd`:/usr/src/$(PROJECT) \
 		$(PROJECT)_python \

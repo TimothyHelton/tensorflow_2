@@ -9,6 +9,7 @@ RUN cd /opt \
 	#&& apt-get upgrade -y \  Do not upgrade NVIDIA image OS
 	&& apt-get install -y \
 		apt-utils \
+		graphviz \
 		protobuf-compiler \
 	&& git clone \
 		--branch master \
