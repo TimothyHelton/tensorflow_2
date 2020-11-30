@@ -89,6 +89,7 @@ setup(
     ),
     install_requires=[
         'click',
+        'kaleido',
         'matplotlib',
         'numpy',
         'opencv-python-headless',
